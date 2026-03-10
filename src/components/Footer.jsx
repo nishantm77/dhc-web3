@@ -30,7 +30,7 @@ export default function Footer() {
           ))}
         </nav>
         <div className="text-white/20 text-xs tracking-widest uppercase">
-          Irving, TX · (972) 916-9486
+          Irving, TX · (817) 287-1814
         </div>
       </div>
     </footer>

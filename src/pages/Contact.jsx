@@ -7,8 +7,8 @@ const contactDetails = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '(972) 916-9486',
-    href: 'tel:+19729169486',
+    value: '(817) 287-1814',
+    href: 'tel:+18172871814',
   },
   {
     icon: Mail,
@@ -19,8 +19,8 @@ const contactDetails = [
   {
     icon: MapPin,
     label: 'Address',
-    value: '2300 Valley View Ln Suite #855, Irving, TX 75062',
-    href: 'https://maps.google.com/?q=2300+Valley+View+Ln+Suite+855,+Irving,+TX+75062',
+    value: '2300 Valley View Ln, 10th Floor, Suite 1040, Irving, TX 75062',
+    href: 'https://maps.google.com/?q=2300+Valley+View+Ln,+Suite+1040,+Irving,+TX+75062',
   },
 ]
 
@@ -95,7 +95,7 @@ export default function Contact() {
               <div className="bg-[#111010] px-8 py-7 flex items-center justify-between">
                 <div>
                   <h2 className="text-white font-serif font-bold text-2xl tracking-tighter">Our Location</h2>
-                  <p className="text-white/50 text-sm mt-1">2300 Valley View Ln Suite #855, Irving, TX 75062</p>
+                  <p className="text-white/50 text-sm mt-1">2300 Valley View Ln, 10th Floor, Suite 1040, Irving, TX 75062</p>
                 </div>
                 <a
                   href="https://maps.google.com/?q=2300+Valley+View+Ln+Suite+855,+Irving,+TX+75062"

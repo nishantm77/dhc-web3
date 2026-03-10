@@ -79,10 +79,10 @@ export default function Navigation() {
           {/* Right CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="tel:+19729169486"
+              href="tel:+18172871814"
               className="text-sm font-medium text-white/60 hover:text-white transition-colors"
             >
-              (972) 916-9486
+              (817) 287-1814
             </a>
             <NavLink
               to="/contact"
