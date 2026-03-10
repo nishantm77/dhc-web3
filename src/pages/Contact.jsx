@@ -98,7 +98,7 @@ export default function Contact() {
                   <p className="text-white/50 text-sm mt-1">2300 Valley View Ln, 10th Floor, Suite 1040, Irving, TX 75062</p>
                 </div>
                 <a
-                  href="https://maps.google.com/?q=2300+Valley+View+Ln+Suite+855,+Irving,+TX+75062"
+                  href="https://maps.google.com/?q=2300+Valley+View+Ln,+Suite+1040,+Irving,+TX+75062"
                   target="_blank"
                   rel="noreferrer"
                   className="flex-shrink-0 flex items-center gap-2 bg-white/10 hover:bg-[#568dca] border border-white/15 text-white text-xs font-bold px-4 py-2.5 rounded-full transition-all duration-300"
@@ -110,7 +110,7 @@ export default function Contact() {
               <div className="w-full" style={{ height: 'clamp(280px, 55vw, 520px)' }}>
                 <iframe
                   title="DHC Office Location"
-                  src="https://maps.google.com/maps?q=2300+Valley+View+Ln+Suite+855,+Irving,+TX+75062&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=2300+Valley+View+Ln,+Suite+1040,+Irving,+TX+75062&t=&z=17&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0, display: 'block' }}
