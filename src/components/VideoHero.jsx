@@ -26,7 +26,7 @@ export default function VideoHero({
         fullscreen ? 'min-h-screen' : 'pt-28 sm:pt-40 lg:pt-60 pb-14 sm:pb-24 lg:pb-36'
       }`}
     >
-      {/* ── Video background (hidden on mobile to save bandwidth) ── */}
+      {/* ── Video background ── */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -34,7 +34,7 @@ export default function VideoHero({
           loop
           playsInline
           preload="metadata"
-          className="hidden sm:block w-full h-full object-cover opacity-50"
+          className="w-full h-full object-cover opacity-50"
           style={{ animation: 'slowZoom 28s ease-in-out infinite alternate' }}
         >
           <source src="/hero-short.mp4" type="video/mp4" />
