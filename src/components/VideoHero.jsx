@@ -1,3 +1,13 @@
+import { useRef, useEffect, useCallback, useState } from 'react';
+
+/** Segments split from the hero video — each ~10 s, loaded lazily */
+const SEGMENTS = [
+  '/hero-seg1.mp4',
+  '/hero-seg2.mp4',
+  '/hero-seg3.mp4',
+  '/hero-seg4.mp4',
+];
+
 /**
  * VideoHero — shared full-bleed video backdrop used on every page.
  *
@@ -20,6 +30,39 @@ export default function VideoHero({
   children,
   floatingEl,
 }) {
+  // ── Dual-buffer sequential video player ──────────────────────────────────
+  const [activeSlot, setActiveSlot] = useState(0);
+  const slot0Ref = useRef(null);
+  const slot1Ref = useRef(null);
+  const playheadRef = useRef(0); // index of the segment currently playing
+
+  useEffect(() => {
+    // Kick off segment 0 in slot 0; slot 1 already has segment 1 as its src
+    // and preload="auto", so the browser buffers it in the background.
+    slot0Ref.current?.play().catch(() => {});
+  }, []);
+
+  const handleEnded = useCallback(() => {
+    const nextIdx = (playheadRef.current + 1) % SEGMENTS.length;
+    playheadRef.current = nextIdx;
+    const newSlot = nextIdx % 2;           // alternates 0 → 1 → 0 → 1 …
+    const bufSlot = 1 - newSlot;
+    const bufSegIdx = (nextIdx + 1) % SEGMENTS.length;
+
+    // The new-active slot was preloaded — just play it
+    (newSlot === 0 ? slot0Ref : slot1Ref).current?.play().catch(() => {});
+
+    // Load the segment-after-next into the now-idle buffer slot
+    const bufRef = (bufSlot === 0 ? slot0Ref : slot1Ref).current;
+    if (bufRef) {
+      bufRef.src = SEGMENTS[bufSegIdx];
+      bufRef.load();
+    }
+
+    setActiveSlot(newSlot);
+  }, []);
+  // ─────────────────────────────────────────────────────────────────────────
+
   return (
     <section
       className={`relative overflow-hidden bg-[#111010] flex flex-col justify-end ${
@@ -28,17 +71,38 @@ export default function VideoHero({
     >
       {/* ── Video background ── */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover opacity-50"
+        {/*
+          Dual-buffer wrapper: slowZoom runs continuously on this div so the
+          animation never resets on segment transitions. opacity-50 dims both
+          slots uniformly; each slot crossfades with transition-opacity.
+        */}
+        <div
+          className="absolute inset-0 opacity-50"
           style={{ animation: 'slowZoom 28s ease-in-out infinite alternate' }}
         >
-          <source src="/hero-short.mp4" type="video/mp4" />
-        </video>
+          <video
+            ref={slot0Ref}
+            src={SEGMENTS[0]}
+            muted
+            playsInline
+            preload="auto"
+            onEnded={handleEnded}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+              activeSlot === 0 ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+          <video
+            ref={slot1Ref}
+            src={SEGMENTS[1]}
+            muted
+            playsInline
+            preload="auto"
+            onEnded={handleEnded}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+              activeSlot === 1 ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        </div>
         {/* gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#111010] via-[#111010]/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#111010]/55 to-transparent" />
