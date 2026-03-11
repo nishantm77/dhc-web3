@@ -26,18 +26,18 @@ export default function VideoHero({
         fullscreen ? 'min-h-screen' : 'pt-28 sm:pt-40 lg:pt-60 pb-14 sm:pb-24 lg:pb-36'
       }`}
     >
-      {/* ── Video background ── */}
+      {/* ── Video background (hidden on mobile to save bandwidth) ── */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
-          className="w-full h-full object-cover opacity-50"
+          preload="metadata"
+          className="hidden sm:block w-full h-full object-cover opacity-50"
           style={{ animation: 'slowZoom 28s ease-in-out infinite alternate' }}
         >
-          <source src="/hero.mp4" type="video/mp4" />
+          <source src="/hero-short.mp4" type="video/mp4" />
         </video>
         {/* gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#111010] via-[#111010]/40 to-transparent" />
